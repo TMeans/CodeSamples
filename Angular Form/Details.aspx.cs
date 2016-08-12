@@ -18,7 +18,7 @@ public partial class Default : System.Web.UI.Page
     {
         if (!Page.IsPostBack)
         {
-            string[] columnNames1 = { "first", "last", "title", "phone", "favorites", "credentials", "email", "bio", "assistant_first", "assistant_last", "assistant_title", "assistant_email", "assistant_phone", "quote", "region", "RIA" };
+            string[] columnNames1 = { "first", "last", "title", "phone", "credentials", "email", "bio", "region", "RIA" };
             string[] columnTypes1 = { "System.String" };
             SqlParameter[] parameters1 = { new SqlParameter("first", SQLCleaner.clean2(Request.QueryString["a"])) };
             string Message1 = string.Empty;
@@ -40,14 +40,14 @@ public partial class Default : System.Web.UI.Page
                         string photoName = DT.Rows[i]["first"].ToString();
                         string region = DT.Rows[i]["region"].ToString();
                         
-						vCardAssist = "/ajax/vcard.aspx?name_first=" + DT.Rows[i]["assistant_first"].ToString() + "&name_last=" + DT.Rows[i]["assistant_last"].ToString() + "&name_full=" + csrFullname + "&email=" + DT.Rows[i]["assistant_email"].ToString() + "&title=" + DT.Rows[i]["assistant_title"].ToString() + "&phone_work=" + DT.Rows[i]["assistant_phone"].ToString();
+			vCard = "/ajax/vcard.aspx?name_first=" + DT.Rows[i]["first"].ToString() + "&name_last=" + DT.Rows[i]["last"].ToString() + "&name_full=" + fullname + "&email=" + DT.Rows[i]["email"].ToString() + "&title=" + DT.Rows[i]["title"].ToString() + "&phone_work=" + DT.Rows[i]["phone"].ToString();
                         LiteralTitle.Text = "<title>" + fullname + " - Index Fund Advisors, Inc.</title>";
                         LiteralTitle.Text += "<meta name='description' content='" + DT.Rows[i]["bio"].ToString() + "' />";
                         AdvisorName.Text = "<span><div class='col-xs-12 col-md-9 pull-right pad-l-0'><h1 class='font-d-blue font-bree font-40 marg-t-0 advisor-name'>Tell Your Friends About Me</h1>";
                         AdvisorName.Text += "</div></span>";
-						AdvisorPhone.Text += "<strong>" + fullname + "</strong><div class='advisor-creds font-14'>" + (title + credentials).TrimEnd(' ', ',') + "</div>";
-                        
-						if (region != "" && region != null)
+			AdvisorPhone.Text += "<strong>" + fullname + "</strong><div class='advisor-creds font-14'>" + (title + credentials).TrimEnd(' ', ',') + "</div>";
+
+			if (region != "" && region != null)
                         {
                             AdvisorPhone.Text += "<div class='advisor-creds'>" + region + "</div>";
                         }
